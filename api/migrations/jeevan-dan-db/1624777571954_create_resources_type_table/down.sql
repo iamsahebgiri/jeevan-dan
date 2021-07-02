@@ -1,0 +1,1 @@
+DROP TABLE "public"."resources_type";

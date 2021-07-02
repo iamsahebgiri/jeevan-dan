@@ -1,0 +1,1 @@
+CREATE TABLE "public"."states" ("id" serial NOT NULL, "name" text NOT NULL, "states_code" text NOT NULL, PRIMARY KEY ("id") );

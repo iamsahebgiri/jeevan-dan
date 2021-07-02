@@ -1,0 +1,1 @@
+CREATE TABLE "public"."districts" ("id" serial NOT NULL, "name" text NOT NULL, "state_id" integer NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("state_id") REFERENCES "public"."states"("id") ON UPDATE cascade ON DELETE cascade);

@@ -1,0 +1,11 @@
+table:
+  name: resources_type
+  schema: public
+array_relationships:
+- name: resources
+  using:
+    foreign_key_constraint_on:
+      column: resource_type_id
+      table:
+        name: resources
+        schema: public

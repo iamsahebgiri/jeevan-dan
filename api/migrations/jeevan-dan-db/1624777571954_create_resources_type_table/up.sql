@@ -1,0 +1,1 @@
+CREATE TABLE "public"."resources_type" ("id" serial NOT NULL, "name" text NOT NULL, PRIMARY KEY ("id") );

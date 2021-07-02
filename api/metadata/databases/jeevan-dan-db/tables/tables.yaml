@@ -1,0 +1,4 @@
+- "!include public_districts.yaml"
+- "!include public_resources.yaml"
+- "!include public_resources_type.yaml"
+- "!include public_states.yaml"

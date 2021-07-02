@@ -1,0 +1,11 @@
+INSERT INTO resources_type(id, name) VALUES(1, 'Ambulance');
+INSERT INTO resources_type(id, name) VALUES(2, 'Blood');
+INSERT INTO resources_type(id, name) VALUES(3, 'Food');
+INSERT INTO resources_type(id, name) VALUES(4, 'Home Care');
+INSERT INTO resources_type(id, name) VALUES(5, 'Hospital Beds');
+INSERT INTO resources_type(id, name) VALUES(6, 'Hospital');
+INSERT INTO resources_type(id, name) VALUES(7, 'Medicines or Injections');
+INSERT INTO resources_type(id, name) VALUES(8, 'Others');
+INSERT INTO resources_type(id, name) VALUES(9, 'Oxygen');
+INSERT INTO resources_type(id, name) VALUES(10, 'Tele Consultation');
+INSERT INTO resources_type(id, name) VALUES(11, 'Testing');
