@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://jeevan-dan.vercel.app/">
-    <img alt="Project logo" height="80" src="https://raw.githubusercontent.com/iamsahebgiri/jeevan-dan/main/public/favicon/jeevan-dan.svg">
+    <img alt="Project logo" height="80" src="https://raw.githubusercontent.com/iamsahebgiri/jeevan-dan/main/web/public/favicon/jeevan-dan.svg">
   </a>
 </p>
 <h1 align="center">Jeevan Dan</h1>
