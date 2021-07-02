@@ -15,6 +15,7 @@ export default function Header() {
           layout="fixed"
           height="24"
           width="24"
+          alt="Jeevan Dan"
         />
         <Heading display={["none" , "block"]} color="gray.100" ml="2" fontSize="lg">
           Jeevan Dan

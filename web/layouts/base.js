@@ -1,7 +1,6 @@
+import { Box } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Box, Container } from '@chakra-ui/react';
-import DarkModeButton from '@/components/DarkModeButton';
 
 export default function BaseLayout(props) {
   const { children, ...customMeta } = props;
