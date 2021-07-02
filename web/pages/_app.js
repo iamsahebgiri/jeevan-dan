@@ -1,0 +1,25 @@
+import dynamic from 'next/dynamic';
+import { ChakraProvider } from '@chakra-ui/react';
+import { useApollo } from '@/lib/apolloClient';
+import { ApolloProvider } from '@apollo/client';
+import customTheme from 'theme';
+import '@/styles/index.css';
+import '@fontsource/inter/variable.css';
+
+const NProgress = dynamic(() => import('../components/NProgress'), {
+  ssr: false,
+});
+
+function MyApp({ Component, pageProps }) {
+  const apolloClient = useApollo(pageProps.initialApolloState);
+
+  return (
+    <ApolloProvider client={apolloClient}>
+      <ChakraProvider theme={customTheme}>
+        <NProgress />
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </ApolloProvider>
+  );
+}
+export default MyApp;
