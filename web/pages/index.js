@@ -1,6 +1,6 @@
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
-import SearchBox from '@/components/SearchBox';
+import Header from '@/components/ui/Header';
+import Hero from '@/components/ui/Hero';
+import Search from '@/components/search/Search';
 import BaseLayout from '@/layouts/base';
 import { Box, Container } from '@chakra-ui/react';
 
@@ -30,7 +30,7 @@ export default function Home() {
         <Container maxW="6xl">
           <Header />
           <Hero />
-          <SearchBox />
+          <Search />
         </Container>
       </Box>
     </BaseLayout>

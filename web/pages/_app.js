@@ -3,10 +3,11 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { useApollo } from '@/lib/apolloClient';
 import { ApolloProvider } from '@apollo/client';
 import customTheme from 'theme';
+
 import '@/styles/index.css';
 import '@fontsource/inter/variable.css';
 
-const NProgress = dynamic(() => import('../components/NProgress'), {
+const NProgress = dynamic(() => import('../components/ui/NProgress'), {
   ssr: false,
 });
 

@@ -3,7 +3,7 @@ import { getColor, mode, transparentize } from '@chakra-ui/theme-tools';
 const size = {
   md: {
     fontSize: 'md',
-    px: 3,
+    px: 2,
     h: 10,
     borderRadius: 'md',
   },

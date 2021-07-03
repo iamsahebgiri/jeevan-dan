@@ -1,5 +1,4 @@
 /* eslint-disable react/display-name */
-import NoSSRWrapper from './NoSSRWrapper';
 import React, { cloneElement, forwardRef } from 'react';
 import ReactSelect, { components as selectComponents } from 'react-select';
 import AsyncReactSelect from 'react-select/async';
@@ -19,9 +18,9 @@ import {
   useStyles,
   useTheme,
   useColorModeValue,
-  createIcon,
 } from '@chakra-ui/react';
 import { HiSelector } from 'react-icons/hi';
+import NoSSRWrapper from '@/components/helper/NoSSRWrapper';
 
 
 // Custom styles for components which do not have a chakra equivalent
@@ -156,7 +155,7 @@ const chakraComponents = {
     <Divider {...innerProps} orientation="vertical" opacity="0" />
   ),
   ClearIndicator: ({ innerProps, selectProps: { size } }) => (
-    <CloseButton {...innerProps} size={size} mx={2} tabIndex={-1} />
+    <CloseButton {...innerProps} color="gray.300" size={size} tabIndex={-1} />
   ),
   DropdownIndicator: ({ innerProps, selectProps: { size } }) => {
     const { addon } = useStyles();

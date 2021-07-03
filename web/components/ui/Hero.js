@@ -1,4 +1,4 @@
-import SubHeading from '@/components/SubHeading';
+import SubHeading from '@/components/ui/SubHeading';
 import { Box, Heading, Text } from '@chakra-ui/react';
 
 export default function Hero() {
@@ -9,7 +9,7 @@ export default function Hero() {
           maxW="2xl"
           mx="auto"
           px={{ base: '6', lg: '8' }}
-          py={{ base: '16', sm: '24' }}
+          py={{ base: '12', sm: '24' }}
           textAlign="center"
         >
           <Heading size="2xl" letterSpacing="tight" color="gray.100">
