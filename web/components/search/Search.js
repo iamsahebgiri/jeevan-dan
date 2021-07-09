@@ -1,46 +1,37 @@
-import { gql, useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import React from 'react';
+import LookingFor from './LookingFor';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
-
-const GET_RESOURCES = gql`
-  query GetResources {
-    resources(limit: 12) {
-      contact_name
-      address
-      contact_number
-      created_at
-      description
-      downvote_count
-      resources_type {
-        name
-      }
-      id
-      upvote_count
-      verified_at
-      updated_at
-      district {
-        name
-        state {
-          name
-        }
-      }
-    }
-  }
-`;
+import { GET_RESOURCES_ALL } from '@/graphql/queries/resources';
 
 export default function Search() {
-  const [getResources, { loading, data, error }] = useLazyQuery(GET_RESOURCES);
+  const [getResources, { loading, data, fetchMore, networkStatus }] =
+    useLazyQuery(GET_RESOURCES_ALL, {
+      variables: {
+        limit: 12,
+        offset: 0,
+      },
+      notifyOnNetworkStatusChange: true,
+    });
 
   const handleSubmit = (formData) => {
     console.log(formData);
     getResources();
   };
 
+  const handleOnClickCard = (e) => {};
+
   return (
     <>
       <SearchForm handleSubmit={handleSubmit} />
-      {loading ? 'Loading...' : <SearchResults data={data} />}
+      <LookingFor handleOnClickCard={handleOnClickCard} />
+      <SearchResults
+        data={data}
+        loading={loading}
+        networkStatus={networkStatus}
+        fetchMore={fetchMore}
+      />
     </>
   );
 }

@@ -47,7 +47,22 @@ export const createApolloClient = (token) => {
       )
     : createHttpLink(token);
 
-  return new ApolloClient({ ssrMode, link, cache: new InMemoryCache() });
+  const cache = new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          resources: {
+            keyArgs: false,
+            merge(existing = [], incoming) {
+              if (incoming.length === 0) return existing;
+              return [...existing, ...incoming];
+            },
+          },
+        },
+      },
+    },
+  });
+  return new ApolloClient({ ssrMode, link, cache });
 };
 
 export const initializeApollo = (initialState = {}, token) => {

@@ -60,11 +60,14 @@ npm run build
 - [Chakra UI](https://chakra-ui.com/)
 - [React Icons](https://react-icons.github.io/react-icons/)
 
-## 📚️ Roadmaps
+## 📚️ Todo
 
-- [ ] Integrate with firebase
-- [ ] Fix the bugs
-- [ ] Add this and that
+- [ ] Search by districts and requirements
+- [ ] search by by just requirements
+- [ ] Infinite scrolling search result
+- [ ] Resources proper layout
+- [ ] Contribute form
+- [ ] Localization, EN(default), OD, HI, Bengali, Telugu, Gujarati
 
 ## ‎‍💻 Authors
 

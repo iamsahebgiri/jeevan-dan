@@ -35,7 +35,14 @@ const ListItem = ({ icon, text, href }) => (
 );
 
 export default function ResourceItem({ resource }) {
-  const { contact_name, contact_number, description, district } = resource;
+  const {
+    contact_name,
+    contact_number,
+    description,
+    district,
+    verified_at,
+    address,
+  } = resource;
   return (
     <Card>
       <Box width="full">
@@ -57,11 +64,15 @@ export default function ResourceItem({ resource }) {
           >
             {contact_name}
           </Heading>
-          <Icon as={HiBadgeCheck} ml="2" color="messenger.500" h="5" w="5" />
+          {verified_at !== null ? (
+            <Icon as={HiBadgeCheck} ml="2" color="messenger.500" h="5" w="5" />
+          ) : null}
         </Flex>
         <VStack align="self-start" mt="4" spacing="3">
           <Text color="gray.700">
-            {description}
+            {description === null || description === ''
+              ? 'No description available'
+              : description}
           </Text>
           <ListItem
             text={contact_number}

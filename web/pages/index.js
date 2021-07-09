@@ -1,6 +1,6 @@
+import Search from '@/components/search/Search';
 import Header from '@/components/ui/Header';
 import Hero from '@/components/ui/Hero';
-import Search from '@/components/search/Search';
 import BaseLayout from '@/layouts/base';
 import { Box, Container } from '@chakra-ui/react';
 
@@ -27,7 +27,7 @@ export default function Home() {
         />
       </Box>
       <Box width="full" mx="auto" pos="absolute" zIndex="2">
-        <Container maxW="6xl">
+        <Container maxW="6xl" pb="24">
           <Header />
           <Hero />
           <Search />
