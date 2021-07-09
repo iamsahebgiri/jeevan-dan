@@ -7,8 +7,9 @@ import {
   FormControl,
   FormLabel,
   SimpleGrid,
+  Text,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useStoreActions, useStoreState } from 'easy-peasy';
 
 const GET_INITIAL_DATA = gql`
   query GetInitialData {
@@ -28,30 +29,31 @@ const GET_INITIAL_DATA = gql`
 `;
 
 export default function SearchForm({ handleSubmit }) {
-  const [formData, setFormData] = useState({
-    selectedState: null,
-    selectedDistrict: null,
-    selectedRequirement: null,
-  });
+  const formData = useStoreState((state) => state.formData);
+  const setFormData = useStoreActions((actions) => actions.setFormData);
 
   const { loading, data, error } = useQuery(GET_INITIAL_DATA);
 
   const handleStateChange = (e) => {
     setFormData({
-      ...formData,
       selectedState: e,
     });
   };
 
   const handleDistrictChange = (e) => {
-    setFormData({ ...formData, selectedDistrict: e });
+    setFormData({ selectedDistrict: e });
   };
 
   const handleRequirementChange = (e) => {
-    setFormData({ ...formData, selectedRequirement: e });
+    setFormData({ selectedRequirement: e });
   };
 
-  if (error) return 'Something went wrong!!';
+  if (error)
+    return (
+      <Card p="8">
+        <Text color="red.600">Something went wrong!!</Text>
+      </Card>
+    );
 
   return (
     <Card p="8">

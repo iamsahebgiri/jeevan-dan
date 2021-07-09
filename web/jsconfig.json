@@ -6,6 +6,7 @@
       "@/lib/*": ["lib/*"],
       "@/layouts/*": ["layouts/*"],
       "@/styles/*": ["styles/*"],
+      "@/store/*": ["store/*"],
       "@/data/*": ["data/*"],
       "@/graphql/*": ["graphql/*"],
       "@/utils/*": ["utils/*"],
