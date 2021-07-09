@@ -1,6 +1,7 @@
 import Card from '@/components/ui/Card';
 import Select from '@/components/ui/Select';
-import { gql, useQuery } from '@apollo/client';
+import { GET_INITIAL_DATA } from '@/graphql/queries/initial';
+import { useQuery } from '@apollo/client';
 import {
   Button,
   Flex,
@@ -11,28 +12,11 @@ import {
 } from '@chakra-ui/react';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 
-const GET_INITIAL_DATA = gql`
-  query GetInitialData {
-    states {
-      label: name
-      value: id
-      districts {
-        label: name
-        value: id
-      }
-    }
-    resources_type {
-      label: name
-      value: id
-    }
-  }
-`;
-
 export default function SearchForm({ handleSubmit }) {
+  const { loading, data, error } = useQuery(GET_INITIAL_DATA);
+
   const formData = useStoreState((state) => state.formData);
   const setFormData = useStoreActions((actions) => actions.setFormData);
-
-  const { loading, data, error } = useQuery(GET_INITIAL_DATA);
 
   const handleStateChange = (e) => {
     setFormData({
@@ -48,12 +32,13 @@ export default function SearchForm({ handleSubmit }) {
     setFormData({ selectedRequirement: e });
   };
 
-  if (error)
+  if (error) {
     return (
       <Card p="8">
         <Text color="red.600">Something went wrong!!</Text>
       </Card>
     );
+  }
 
   return (
     <Card p="8">

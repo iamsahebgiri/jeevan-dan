@@ -16,8 +16,8 @@ export default function Search() {
     });
 
   const handleSubmit = (formData) => {
-    console.log(formData);
-    getResources();
+    
+    // getResources();
   };
 
   const handleOnClickCard = (e) => {};

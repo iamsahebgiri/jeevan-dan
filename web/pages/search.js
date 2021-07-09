@@ -1,27 +1,21 @@
 import SearchForm from '@/components/search/SearchForm';
-import LookingFor from '@/components/search/LookingFor';
+import SearchResults from '@/components/search/SearchResults';
 import Header from '@/components/ui/Header';
-import Hero from '@/components/ui/Hero';
 import BaseLayout from '@/layouts/base';
 import { Box, Container } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+import React from 'react';
 
-export default function Home() {
-  const router = useRouter();
-
-  const handleSubmit = () => {
-    router.push('/search');
-  };
-
-  const handleOnClickCard = (e) => {
-    console.log(e.target);
+export default function SearchPage() {
+  
+  const handleSubmit = (e) => {
+    console.log(e);
   }
 
   return (
     <BaseLayout title="Home">
       <Box>
         <Box
-          h="md"
+          h="48"
           width="full"
           zIndex="1"
           opacity="0.9"
@@ -29,7 +23,7 @@ export default function Home() {
           position="absolute"
         />
         <Box
-          h="md"
+          h="48"
           width="full"
           zIndex="-1"
           bg="gray.700"
@@ -41,9 +35,10 @@ export default function Home() {
       <Box width="full" mx="auto" pos="absolute" zIndex="2">
         <Container maxW="6xl">
           <Header />
-          <Hero />
-          <SearchForm handleSubmit={handleSubmit} />
-          <LookingFor handleOnClickCard={handleOnClickCard} />
+          <Box mt="16">
+            <SearchForm handleSubmit={handleSubmit} />
+            <SearchResults />
+          </Box>
         </Container>
       </Box>
     </BaseLayout>
