@@ -1,8 +1,0 @@
-10
-Invalid arguments
-10
-50
-40
-20
-Invalid arguments
-List is empty

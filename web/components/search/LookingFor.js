@@ -1,6 +1,11 @@
 import Card from '@/components/ui/Card';
-import { Box, Heading, SimpleGrid, Text } from '@chakra-ui/react';
+import { GET_RESOURCES_TYPES_STATS } from '@/graphql/queries/resourcesType';
+import { Box, Heading, SimpleGrid, Text, Skeleton } from '@chakra-ui/react';
+import { useQuery } from '@apollo/client';
 import Image from 'next/image';
+import { kebabCase } from 'lodash';
+import { useStoreActions } from 'easy-peasy';
+import { useRouter } from 'next/router';
 
 const LookingForCard = ({ heading, p, imgUrl, onClick }) => {
   return (
@@ -14,9 +19,11 @@ const LookingForCard = ({ heading, p, imgUrl, onClick }) => {
         blurDataURL={`/img/${imgUrl}?w=10&q=10`}
         alt={heading}
       />
+
       <Heading fontSize="md" textAlign="center">
         {heading}
       </Heading>
+
       <Text color="gray.600" textAlign="center">
         {p}
       </Text>
@@ -24,61 +31,53 @@ const LookingForCard = ({ heading, p, imgUrl, onClick }) => {
   );
 };
 
-const LookingFor = ({ handleOnClickCard }) => {
+const LookingForLoadingSkeleton = () => (
+  <Box my="12">
+    <Skeleton width="sm" h="8" mb="12" />
+    <SimpleGrid minChildWidth="210px" spacing="6">
+      <Skeleton h="36" />
+      <Skeleton h="36" />
+      <Skeleton h="36" />
+      <Skeleton h="36" />
+    </SimpleGrid>
+  </Box>
+);
+
+const LookingFor = () => {
+  const { loading, data } = useQuery(GET_RESOURCES_TYPES_STATS);
+  const setFormData = useStoreActions((actions) => actions.setFormData);
+  const router = useRouter();
+
+  const handleOnClickCard = (id, name) => {
+    setFormData({
+      selectedRequirement: {
+        label: name,
+        value: id,
+        __typename: 'resources_type',
+      },
+    });
+    router.push('/search');
+  };
+
+  if (loading) return <LookingForLoadingSkeleton />;
+
   return (
     <Box my="12">
-      <Heading fontSize="xl" mb="6">
+      <Heading fontSize="xl" mb="10">
         What are you looking for
       </Heading>
       <SimpleGrid minChildWidth="210px" spacing="6">
-        <LookingForCard
-          onClick={handleOnClickCard}
-          imgUrl="ambulance.png"
-          heading="Ambulance"
-          p="30 ambulances in total"
-        />
-        <LookingForCard
-          onClick={handleOnClickCard}
-          imgUrl="blood.png"
-          heading="Blood"
-          p="156 blood donor available"
-        />
-        <LookingForCard
-          onClick={handleOnClickCard}
-          imgUrl="food.png"
-          heading="Food"
-          p="156 food service in total"
-        />
-        <LookingForCard
-          onClick={handleOnClickCard}
-          imgUrl="hospital-bed.png"
-          heading="Hospital Bed"
-          p="156 hospital bed available"
-        />
-        <LookingForCard
-          onClick={handleOnClickCard}
-          imgUrl="medicine.png"
-          heading="Medicine and Injections"
-          p="120 injections available"
-        />
-        <LookingForCard
-          onClick={handleOnClickCard}
-          imgUrl="call.png"
-          heading="Tele Consultations"
-          p="120 therapist available"
-        />
-        <LookingForCard
-          onClick={handleOnClickCard}
-          imgUrl="lab.png"
-          heading="COVID Testing"
-          p="120 testing centre available"
-        />
-        <LookingForCard
-          onClick={handleOnClickCard}
-          imgUrl="oxygen.png"
-          heading="Oxygen Tank"
-          p="150 providers available"
-        />
+        {data.resources_type.map(({ id, name, resources_aggregate }) => (
+          <LookingForCard
+            key={id}
+            onClick={() => handleOnClickCard(id, name)}
+            imgUrl={`${kebabCase(name)}.png`}
+            heading={name}
+            p={`${
+              resources_aggregate.aggregate.count
+            } ${name.toLowerCase()} available `}
+          />
+        ))}
       </SimpleGrid>
     </Box>
   );
