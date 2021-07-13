@@ -1,15 +1,20 @@
+import AllResources from '@/components/search-results/AllResources';
+import ResourcesByDistrict from '@/components/search-results/ResourcesByDistrict';
+import ResourcesByReqAndDist from '@/components/search-results/ResourcesByReqAndDist';
+import ResourcesByRequirement from '@/components/search-results/ResourcesByRequirement';
+import ResourcesByState from '@/components/search-results/ResourcesByState';
 import SearchForm from '@/components/search/SearchForm';
-import SearchResults from '@/components/search/SearchResults';
 import Header from '@/components/ui/Header';
 import BaseLayout from '@/layouts/base';
+import useRenderType from '@/lib/useRenderType';
 import { Box, Container } from '@chakra-ui/react';
-import React from 'react';
 
 export default function SearchPage() {
-  
-  const handleSubmit = (e) => {
-    console.log(e);
-  }
+  const { renderType } = useRenderType();
+
+  const handleSubmit = (formData) => {
+    console.log(formData);
+  };
 
   return (
     <BaseLayout title="Home">
@@ -36,8 +41,14 @@ export default function SearchPage() {
         <Container maxW="6xl">
           <Header />
           <Box mt="16">
-            <SearchForm handleSubmit={handleSubmit} />
-            <SearchResults />
+            <SearchForm handleSubmit={handleSubmit} showSearch={false} />
+            {renderType === '' && <AllResources />}
+            {renderType === 'BY_RESOURCE_TYPE_ID' && <ResourcesByRequirement />}
+            {renderType === 'BY_DISTRICT_ID' && <ResourcesByDistrict />}
+            {renderType === 'BY_STATE_ID' && <ResourcesByState />}
+            {renderType === 'BY_RESOURCE_TYPE_ID_AND_DISTRICT_ID' && (
+              <ResourcesByReqAndDist />
+            )}
           </Box>
         </Container>
       </Box>
