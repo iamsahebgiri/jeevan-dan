@@ -1,7 +1,6 @@
 import Card from '@/components/ui/Card';
 import Select from '@/components/ui/Select';
 import { GET_INITIAL_DATA } from '@/graphql/queries/initial';
-import { useQuery } from '@apollo/client';
 import {
   Button,
   Flex,
@@ -10,9 +9,10 @@ import {
   SimpleGrid,
   Text,
 } from '@chakra-ui/react';
+import { useQuery } from 'graphql-hooks';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 
-export default function SearchForm({ handleSubmit }) {
+export default function SearchForm({ handleSubmit, showSearch = true }) {
   const { loading, data, error } = useQuery(GET_INITIAL_DATA);
 
   const formData = useStoreState((state) => state.formData);
@@ -80,16 +80,17 @@ export default function SearchForm({ handleSubmit }) {
             isClearable="true"
           />
         </FormControl>
-
-        <Flex mt="8">
-          <Button
-            onClick={(e) => handleSubmit(formData)}
-            colorScheme="orange"
-            width="full"
-          >
-            Search
-          </Button>
-        </Flex>
+        {showSearch && (
+          <Flex mt="8">
+            <Button
+              onClick={(e) => handleSubmit(formData)}
+              colorScheme="orange"
+              width="full"
+            >
+              Search
+            </Button>
+          </Flex>
+        )}
       </SimpleGrid>
     </Card>
   );

@@ -1,7 +1,7 @@
 import Card from '@/components/ui/Card';
 import { GET_RESOURCES_TYPES_STATS } from '@/graphql/queries/resourcesType';
 import { Box, Heading, SimpleGrid, Text, Skeleton } from '@chakra-ui/react';
-import { useQuery } from '@apollo/client';
+import { useQuery } from 'graphql-hooks';
 import Image from 'next/image';
 import { kebabCase } from 'lodash';
 import { useStoreActions } from 'easy-peasy';

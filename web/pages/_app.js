@@ -1,10 +1,10 @@
 import dynamic from 'next/dynamic';
 import { ChakraProvider } from '@chakra-ui/react';
-import { useApollo } from '@/lib/apolloClient';
-import { ApolloProvider } from '@apollo/client';
 import { StoreProvider } from 'easy-peasy';
 import store from '../store';
 import customTheme from 'theme';
+import { client } from '@/lib/graphqlClient';
+import { ClientContext } from 'graphql-hooks';
 
 import '@/styles/index.css';
 import '@fontsource/inter/variable.css';
@@ -14,16 +14,14 @@ const NProgress = dynamic(() => import('../components/ui/NProgress'), {
 });
 
 function MyApp({ Component, pageProps }) {
-  const apolloClient = useApollo(pageProps.initialApolloState);
-
   return (
     <StoreProvider store={store}>
-      <ApolloProvider client={apolloClient}>
+      <ClientContext.Provider value={client}>
         <ChakraProvider theme={customTheme}>
           <NProgress />
           <Component {...pageProps} />
         </ChakraProvider>
-      </ApolloProvider>
+      </ClientContext.Provider>
     </StoreProvider>
   );
 }
