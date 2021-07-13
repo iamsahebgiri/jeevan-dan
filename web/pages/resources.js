@@ -1,4 +1,3 @@
-import Faqs from '@/components/resources/Faqs';
 import SectionHeading from '@/components/resources/SectionHeading';
 import Card from '@/components/ui/Card';
 import HeaderLight from '@/components/ui/HeaderLight';
@@ -21,6 +20,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import { HiCheckCircle } from 'react-icons/hi';
 const SpreadCard = ({ imgUrl, heading, children }) => {
   return (
@@ -142,6 +142,8 @@ const LinkItem = ({ p, href }) => {
 };
 
 export default function ResourcePage() {
+  const router = useRouter();
+
   return (
     <BaseLayout title="Resource">
       <HeaderLight />
@@ -168,7 +170,11 @@ export default function ResourcePage() {
             </Container>
           </Box>
           <Box mt="6">
-            <Button px="8" colorScheme="orange">
+            <Button
+              px="8"
+              colorScheme="orange"
+              onClick={() => router.push('/faqs')}
+            >
               View FAQs
             </Button>
           </Box>
@@ -378,8 +384,6 @@ export default function ResourcePage() {
           </SimpleGrid>
         </Container>
       </Box>
-
-      <Faqs />
     </BaseLayout>
   );
 }

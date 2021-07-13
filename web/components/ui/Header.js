@@ -28,7 +28,7 @@ export default function Header() {
               <Text color="gray.300">Contribute</Text>
             </Link>
           </NextLink>
-          <NextLink href="/contribute" passHref>
+          <NextLink href="/faqs" passHref>
             <Link display={["none", "block"]}>
               <Text color="gray.300">FAQs</Text>
             </Link>

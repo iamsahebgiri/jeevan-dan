@@ -1,9 +1,10 @@
-import { Heading } from '@chakra-ui/react';
-import BaseLayout from '@/layouts/base';
-import Header from '@/components/ui/Header';
+import SectionHeading from '@/components/resources/SectionHeading';
 import ContributeForm from '@/components/contribute/ContributeForm';
-import HeaderLight from '@/components/ui/HeaderLight';
 import NoSSRWrapper from '@/components/helper/NoSSRWrapper';
+import HeaderLight from '@/components/ui/HeaderLight';
+import BaseLayout from '@/layouts/base';
+import { Box, Container, Heading, Text } from '@chakra-ui/react';
+import SubHeading from '@/components/ui/SubHeading';
 
 export default function ContributePage() {
   return (

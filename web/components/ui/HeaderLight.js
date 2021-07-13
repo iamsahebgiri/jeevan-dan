@@ -63,7 +63,7 @@ export default function HeaderLight() {
         <Flex justifyContent="space-between">
           <Flex w="full" justifyContent="space-between">
             <NextLink href="/">
-              <Link>
+              <Link _hover={{ textDecoration: 'none' }}>
                 <SiteLogo />
               </Link>
             </NextLink>

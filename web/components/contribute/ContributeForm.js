@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   chakra,
+  Container,
   FormControl,
   FormLabel,
   GridItem,
@@ -145,7 +146,7 @@ export default function ContributeForm() {
   };
 
   return (
-    <Box bg={useColorModeValue('gray.50', 'inherit')} p={['0', '10']}>
+    <Container bg={useColorModeValue('gray.50', 'inherit')} py="12" maxW="6xl" mx="auto">
       <Box mt={[10, 0]}>
         <SimpleGrid
           display={{ base: 'initial', md: 'grid' }}
@@ -364,6 +365,6 @@ export default function ContributeForm() {
           </GridItem>
         </SimpleGrid>
       </Box>
-    </Box>
+    </Container>
   );
 }
