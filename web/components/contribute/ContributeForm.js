@@ -1,38 +1,149 @@
+import Select from '@/components/ui/Select';
+import { INSERT_RESOURCE } from '@/graphql/mutations/resources';
+import { GET_INITIAL_DATA } from '@/graphql/queries/initial';
 import {
   Box,
   Button,
   chakra,
-  Container,
   FormControl,
   FormLabel,
   GridItem,
   Heading,
   Input,
-  Select,
   SimpleGrid,
   Stack,
   Text,
+  Textarea,
   useColorModeValue,
+  useToast,
 } from '@chakra-ui/react';
-import React from 'react';
+import { useMutation, useQuery } from 'graphql-hooks';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
-const ContributeForm = () => {
-  return (
-    <Box>
-      <Container>
-        <Heading>Add verified information</Heading>
-        <Text>
-          The information being submitted by you could help save someone&apos;s
-          life. Please fill the form below to add information. Our team of
-          volunteers will verify the 0details before making it accessible to
-          others.
-        </Text>
-      </Container>
-    </Box>
-  );
-};
+export default function ContributeForm() {
+  const { loading, data } = useQuery(GET_INITIAL_DATA);
+  const [insertResource, { loading: isSubmitting }] =
+    useMutation(INSERT_RESOURCE);
 
-export default function Component() {
+  const [formData, setFormData] = useState({
+    contact_name: '',
+    contact_number: '',
+    address: '',
+    description: '',
+    selectedState: null,
+    selectedDistrict: null,
+    selectedRequirement: null,
+  });
+
+  const toast = useToast();
+  const router = useRouter();
+
+  const handleStateChange = (e) => {
+    setFormData({
+      ...formData,
+      selectedState: e,
+    });
+  };
+
+  const handleContactNameChange = (e) => {
+    setFormData({
+      ...formData,
+      contact_name: e.target.value,
+    });
+  };
+
+  const handleContactNumberChange = (e) => {
+    setFormData({
+      ...formData,
+      contact_number: e.target.value,
+    });
+  };
+
+  const handleAddressChange = (e) => {
+    setFormData({
+      ...formData,
+      address: e.target.value,
+    });
+  };
+
+  const handleDescriptionChange = (e) => {
+    setFormData({
+      ...formData,
+      description: e.target.value,
+    });
+  };
+
+  const handleDistrictChange = (e) => {
+    setFormData({ ...formData, selectedDistrict: e });
+  };
+
+  const handleRequirementChange = (e) => {
+    setFormData({ ...formData, selectedRequirement: e });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const {
+      contact_name,
+      contact_number,
+      address,
+      description,
+      selectedDistrict,
+      selectedRequirement,
+    } = formData;
+
+    if (
+      contact_name === '' ||
+      contact_number === '' ||
+      address === '' ||
+      description === '' ||
+      selectedDistrict === null ||
+      selectedRequirement === null
+    ) {
+      console.log('There is an error in the form.');
+      toast({
+        title: 'Form Error.',
+        description: 'Make sure to fill all the fields.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    } else {
+      const data = {
+        contact_name,
+        contact_number,
+        address,
+        description,
+        district_id: selectedDistrict?.value,
+        resource_type_id: selectedRequirement?.value,
+      };
+
+      insertResource({ variables: data })
+        .then((res) => {
+          console.log(res);
+          toast({
+            title: 'Resource created.',
+            description: 'Thank you for helping!',
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+          });
+          router.push('/');
+        })
+        .catch((error) => {
+          console.log(error);
+          toast({
+            title: 'Form Error.',
+            description: 'Something went wrong!!',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          });
+        });
+    }
+  };
+
   return (
     <Box bg={useColorModeValue('gray.50', 'inherit')} p={['0', '10']}>
       <Box mt={[10, 0]}>
@@ -57,12 +168,7 @@ export default function Component() {
             </Box>
           </GridItem>
           <GridItem mt={[5, null, 0]} colSpan={{ md: 2 }}>
-            <chakra.form
-              method="POST"
-              shadow="base"
-              rounded={[null, 'md']}
-              overflow={{ sm: 'hidden' }}
-            >
+            <chakra.form shadow="base" rounded={[null, 'md']}>
               <Stack
                 px={4}
                 py={5}
@@ -71,19 +177,21 @@ export default function Component() {
                 spacing={6}
               >
                 <SimpleGrid columns={6} spacing={6}>
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                  <FormControl as={GridItem} colSpan={[6, 3]} isRequired>
                     <FormLabel
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue('gray.700', 'gray.50')}
                     >
-                      First name
+                      Name
                     </FormLabel>
                     <Input
                       type="text"
-                      name="first_name"
-                      id="first_name"
-                      autoComplete="given-name"
+                      value={formData.contact_name}
+                      onChange={handleContactNameChange}
+                      name="contact_name"
+                      id="contact_name"
+                      autoComplete="name"
                       mt={1}
                       shadow="sm"
                       w="full"
@@ -91,19 +199,21 @@ export default function Component() {
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                  <FormControl as={GridItem} colSpan={[6, 3]} isRequired>
                     <FormLabel
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue('gray.700', 'gray.50')}
                     >
-                      Last name
+                      Contact Number
                     </FormLabel>
                     <Input
-                      type="text"
-                      name="last_name"
-                      id="last_name"
-                      autoComplete="family-name"
+                      type="number"
+                      name="contact_number"
+                      id="contact_number"
+                      value={formData.contact_number}
+                      onChange={handleContactNumberChange}
+                      autoComplete="tel-national"
                       mt={1}
                       shadow="sm"
                       w="full"
@@ -111,66 +221,22 @@ export default function Component() {
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={[6, 4]}>
+                  <FormControl as={GridItem} colSpan={[6, 4]} isRequired>
                     <FormLabel
-                      htmlFor="email_address"
+                      htmlFor="address"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue('gray.700', 'gray.50')}
                     >
-                      Email address
+                      Address
                     </FormLabel>
                     <Input
                       type="text"
-                      name="email_address"
-                      id="email_address"
-                      autoComplete="email"
-                      mt={1}
-                      shadow="sm"
-                      w="full"
-                      rounded="md"
-                    />
-                  </FormControl>
-
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
-                    <FormLabel
-                      htmlFor="country"
-                      fontSize="sm"
-                      fontWeight="md"
-                      color={useColorModeValue('gray.700', 'gray.50')}
-                    >
-                      Country / Region
-                    </FormLabel>
-                    <Select
-                      id="country"
-                      name="country"
-                      autoComplete="country"
-                      placeholder="Select option"
-                      mt={1}
-                      shadow="sm"
-                      w="full"
-                      rounded="md"
-                    >
-                      <option>United States</option>
-                      <option>Canada</option>
-                      <option>Mexico</option>
-                    </Select>
-                  </FormControl>
-
-                  <FormControl as={GridItem} colSpan={6}>
-                    <FormLabel
-                      htmlFor="street_address"
-                      fontSize="sm"
-                      fontWeight="md"
-                      color={useColorModeValue('gray.700', 'gray.50')}
-                    >
-                      Street address
-                    </FormLabel>
-                    <Input
-                      type="text"
-                      name="street_address"
-                      id="street_address"
+                      name="address"
+                      id="address"
                       autoComplete="street-address"
+                      value={formData.address}
+                      onChange={handleAddressChange}
                       mt={1}
                       shadow="sm"
                       w="full"
@@ -178,62 +244,99 @@ export default function Component() {
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
-                    <FormLabel
-                      htmlFor="city"
-                      fontSize="sm"
-                      fontWeight="md"
-                      color={useColorModeValue('gray.700', 'gray.50')}
-                    >
-                      City
-                    </FormLabel>
-                    <Input
-                      type="text"
-                      name="city"
-                      id="city"
-                      autoComplete="city"
-                      mt={1}
-                      shadow="sm"
-                      w="full"
-                      rounded="md"
-                    />
-                  </FormControl>
-
-                  <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
+                  <FormControl
+                    as={GridItem}
+                    colSpan={[6, 6, null, 3]}
+                    isRequired
+                  >
                     <FormLabel
                       htmlFor="state"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue('gray.700', 'gray.50')}
                     >
-                      State / Province
+                      State
                     </FormLabel>
-                    <Input
-                      type="text"
-                      name="state"
-                      id="state"
-                      autoComplete="state"
-                      mt={1}
-                      shadow="sm"
-                      w="full"
-                      rounded="md"
+                    <Select
+                      placeholder="States"
+                      isLoading={loading}
+                      options={!loading && data.states}
+                      onChange={handleStateChange}
+                      value={formData.selectedState}
+                      isClearable="true"
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
+                  <FormControl
+                    as={GridItem}
+                    colSpan={[6, 3, null, 3]}
+                    isRequired
+                  >
                     <FormLabel
-                      htmlFor="postal_code"
+                      htmlFor="city"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue('gray.700', 'gray.50')}
                     >
-                      ZIP / Postal
+                      City / Districts
                     </FormLabel>
-                    <Input
+                    <Select
+                      placeholder="Select city"
+                      isLoading={loading}
+                      options={
+                        !loading && formData.selectedState !== null
+                          ? formData.selectedState.districts
+                          : []
+                      }
+                      onChange={handleDistrictChange}
+                      value={formData.selectedDistrict}
+                      isClearable="true"
+                    />
+                  </FormControl>
+
+                  <FormControl
+                    as={GridItem}
+                    colSpan={[6, 3, null, 3]}
+                    isRequired
+                  >
+                    <FormLabel
+                      htmlFor="resources"
+                      fontSize="sm"
+                      fontWeight="md"
+                      color={useColorModeValue('gray.700', 'gray.50')}
+                    >
+                      Resources
+                    </FormLabel>
+                    <Select
+                      placeholder="Select resource"
+                      isLoading={loading}
+                      options={!loading && data.resources_type}
+                      onChange={handleRequirementChange}
+                      value={formData.selectedRequirement}
+                      isClearable="true"
+                    />
+                  </FormControl>
+                  <FormControl
+                    as={GridItem}
+                    colSpan={[6, 6, null, 6]}
+                    isRequired
+                  >
+                    <FormLabel
+                      htmlFor="resources"
+                      fontSize="sm"
+                      fontWeight="md"
+                      color={useColorModeValue('gray.700', 'gray.50')}
+                    >
+                      Description
+                    </FormLabel>
+                    <Textarea
                       type="text"
-                      name="postal_code"
-                      id="postal_code"
-                      autoComplete="postal-code"
+                      name="description"
+                      id="description"
+                      value={formData.description}
+                      onChange={handleDescriptionChange}
+                      focusBorderColor="orange.500"
+                      autoComplete="description"
                       mt={1}
                       shadow="sm"
                       w="full"
@@ -248,22 +351,18 @@ export default function Component() {
                 bg={useColorModeValue('gray.50', 'gray.900')}
                 textAlign="right"
               >
-                <Button type="submit" colorScheme="orange">
+                <Button
+                  type="submit"
+                  onClick={handleFormSubmit}
+                  colorScheme="orange"
+                  isLoading={isSubmitting}
+                >
                   Submit
                 </Button>
               </Box>
             </chakra.form>
           </GridItem>
         </SimpleGrid>
-      </Box>
-
-      <Box visibility={{ base: 'hidden', sm: 'visible' }} aria-hidden="true">
-        <Box py={5}>
-          <Box
-            borderTop="solid 1px"
-            borderTopColor={useColorModeValue('gray.200', 'whiteAlpha.200')}
-          ></Box>
-        </Box>
       </Box>
     </Box>
   );

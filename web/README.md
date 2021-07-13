@@ -66,8 +66,9 @@ npm run build
 - [x] search by by just requirements
 - [x] Infinite scrolling search result
 - [x] Resources proper layout
-- [ ] Contribute form
+- [x] Contribute form
 - [ ] Localization, EN(default), OD, HI, Bengali, Telugu, Gujarati
+- [ ] Like an unlike
 
 ## ‎‍💻 Authors
 
