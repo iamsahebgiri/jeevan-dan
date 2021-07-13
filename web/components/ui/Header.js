@@ -10,23 +10,28 @@ export default function Header() {
       borderBottomColor="gray.800"
       justify="space-between"
     >
-      <Flex align="center">
-        <Image
-          src="/favicon/jeevan-dan.svg"
-          layout="fixed"
-          height="24"
-          width="24"
-          alt="Jeevan Dan"
-        />
-        <Heading
-          display={['none', 'block']}
-          color="gray.100"
-          ml="2"
-          fontSize="lg"
-        >
-          Jeevan Dan
-        </Heading>
-      </Flex>
+      <NextLink href="/" passHref>
+        <Link>
+          <Flex align="center">
+            <Image
+              src="/favicon/jeevan-dan.svg"
+              layout="fixed"
+              height="24"
+              width="24"
+              alt="Jeevan Dan"
+            />
+            <Heading
+              display={['none', 'block']}
+              color="gray.100"
+              ml="2"
+              fontSize="lg"
+            >
+              Jeevan Dan
+            </Heading>
+          </Flex>
+        </Link>
+      </NextLink>
+
       <Flex>
         <HStack spacing="6">
           <NextLink href="/resources" passHref>
