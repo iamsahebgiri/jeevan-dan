@@ -5,7 +5,7 @@ const SectionHeading = ({ heading, children }) => {
   return (
     <Box textAlign="center">
       <Container maxW="2xl">
-        <Heading size="xl" letterSpacing="tight" mt="12" color="blue.500">
+        <Heading size="xl" letterSpacing="tight" mt="12" color="orange.600">
           {heading}
         </Heading>
         <SubHeading mt="4" color="gray.600">

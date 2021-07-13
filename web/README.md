@@ -62,10 +62,10 @@ npm run build
 
 ## 📚️ Todo
 
-- [ ] Search by districts and requirements
-- [ ] search by by just requirements
-- [ ] Infinite scrolling search result
-- [ ] Resources proper layout
+- [x] Search by districts and requirements
+- [x] search by by just requirements
+- [x] Infinite scrolling search result
+- [x] Resources proper layout
 - [ ] Contribute form
 - [ ] Localization, EN(default), OD, HI, Bengali, Telugu, Gujarati
 

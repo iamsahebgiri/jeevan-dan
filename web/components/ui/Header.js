@@ -1,6 +1,6 @@
-import Image from 'next/image';
+import { Flex, HStack, Link, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { Flex, Heading, HStack, Link, Text } from '@chakra-ui/react';
+import SiteLogo from './SiteLogo';
 
 export default function Header() {
   return (
@@ -12,23 +12,7 @@ export default function Header() {
     >
       <NextLink href="/" passHref>
         <Link>
-          <Flex align="center">
-            <Image
-              src="/favicon/jeevan-dan.svg"
-              layout="fixed"
-              height="24"
-              width="24"
-              alt="Jeevan Dan"
-            />
-            <Heading
-              display={['none', 'block']}
-              color="gray.100"
-              ml="2"
-              fontSize="lg"
-            >
-              Jeevan Dan
-            </Heading>
-          </Flex>
+          <SiteLogo mode="dark" />
         </Link>
       </NextLink>
 
@@ -42,6 +26,11 @@ export default function Header() {
           <NextLink href="/contribute" passHref>
             <Link>
               <Text color="gray.300">Contribute</Text>
+            </Link>
+          </NextLink>
+          <NextLink href="/contribute" passHref>
+            <Link display={["none", "block"]}>
+              <Text color="gray.300">FAQs</Text>
             </Link>
           </NextLink>
         </HStack>
