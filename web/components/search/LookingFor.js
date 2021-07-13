@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { kebabCase } from 'lodash';
 import { useStoreActions } from 'easy-peasy';
 import { useRouter } from 'next/router';
+import locales from '@/data/locales';
 
 const LookingForCard = ({ heading, p, imgUrl, onClick }) => {
   return (
@@ -47,6 +48,7 @@ const LookingFor = () => {
   const { loading, data } = useQuery(GET_RESOURCES_TYPES_STATS);
   const setFormData = useStoreActions((actions) => actions.setFormData);
   const router = useRouter();
+  const { locale } = router;
 
   const handleOnClickCard = (id, name) => {
     setFormData({
@@ -64,7 +66,7 @@ const LookingFor = () => {
   return (
     <Box my="12">
       <Heading fontSize="xl" mb="10">
-        What are you looking for
+        {locales[locale].lookingFor}
       </Heading>
       <SimpleGrid minChildWidth="210px" spacing="6">
         {data.resources_type.map(({ id, name, resources_aggregate }) => (

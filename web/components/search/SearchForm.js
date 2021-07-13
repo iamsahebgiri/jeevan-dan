@@ -11,8 +11,14 @@ import {
 } from '@chakra-ui/react';
 import { useQuery } from 'graphql-hooks';
 import { useStoreActions, useStoreState } from 'easy-peasy';
+import { useRouter } from 'next/router';
+import locales from '@/data/locales';
 
 export default function SearchForm({ handleSubmit, showSearch = true }) {
+
+  const router = useRouter();
+  const { locale } = router;
+
   const { loading, data, error } = useQuery(GET_INITIAL_DATA);
 
   const formData = useStoreState((state) => state.formData);
@@ -44,7 +50,7 @@ export default function SearchForm({ handleSubmit, showSearch = true }) {
     <Card p="8">
       <SimpleGrid width="full" minChildWidth="240px" spacing="4">
         <FormControl id="states">
-          <FormLabel>Select states</FormLabel>
+          <FormLabel>{locales[locale].selectState}</FormLabel>
           <Select
             placeholder="States"
             isLoading={loading}
@@ -55,7 +61,7 @@ export default function SearchForm({ handleSubmit, showSearch = true }) {
           />
         </FormControl>
         <FormControl id="districts">
-          <FormLabel>Select city</FormLabel>
+          <FormLabel>{locales[locale].selectCity}</FormLabel>
           <Select
             placeholder="City/Districts"
             isLoading={loading}
@@ -70,7 +76,7 @@ export default function SearchForm({ handleSubmit, showSearch = true }) {
           />
         </FormControl>
         <FormControl id="requirements">
-          <FormLabel>Select requirements</FormLabel>
+          <FormLabel>{locales[locale].selectRequirements}</FormLabel>
           <Select
             placeholder="Requirements"
             isLoading={loading}
@@ -87,7 +93,7 @@ export default function SearchForm({ handleSubmit, showSearch = true }) {
               colorScheme="orange"
               width="full"
             >
-              Search
+              {locales[locale].search}
             </Button>
           </Flex>
         )}

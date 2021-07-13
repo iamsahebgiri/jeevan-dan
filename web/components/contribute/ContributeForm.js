@@ -1,4 +1,5 @@
 import Select from '@/components/ui/Select';
+import locales from '@/data/locales';
 import { INSERT_RESOURCE } from '@/graphql/mutations/resources';
 import { GET_INITIAL_DATA } from '@/graphql/queries/initial';
 import {
@@ -39,6 +40,7 @@ export default function ContributeForm() {
 
   const toast = useToast();
   const router = useRouter();
+  const {locale} = router;
 
   const handleStateChange = (e) => {
     setFormData({
@@ -155,16 +157,15 @@ export default function ContributeForm() {
         >
           <GridItem colSpan={{ md: 1 }}>
             <Box px={[4, 0]}>
-              <Heading fontSize="lg" fontWeight="medium" lineHeight="6">
-                Add verified information
+              <Heading fontSize="lg" fontWeight="semibold" lineHeight="6">
+                {locales[locale].contributeForm.heading}
               </Heading>
               <Text
                 mt={1}
                 fontSize="sm"
                 color={useColorModeValue('gray.600', 'gray.400')}
               >
-                The information being submitted by you could help save
-                someone&apos;s life.
+                {locales[locale].contributeForm.subheading}
               </Text>
             </Box>
           </GridItem>
@@ -184,7 +185,7 @@ export default function ContributeForm() {
                       fontWeight="md"
                       color={useColorModeValue('gray.700', 'gray.50')}
                     >
-                      Name
+                       {locales[locale].contributeForm.name}
                     </FormLabel>
                     <Input
                       type="text"
@@ -206,7 +207,7 @@ export default function ContributeForm() {
                       fontWeight="md"
                       color={useColorModeValue('gray.700', 'gray.50')}
                     >
-                      Contact Number
+                       {locales[locale].contributeForm.contact_number}
                     </FormLabel>
                     <Input
                       type="number"
@@ -229,7 +230,7 @@ export default function ContributeForm() {
                       fontWeight="md"
                       color={useColorModeValue('gray.700', 'gray.50')}
                     >
-                      Address
+                       {locales[locale].contributeForm.address}
                     </FormLabel>
                     <Input
                       type="text"
@@ -256,7 +257,7 @@ export default function ContributeForm() {
                       fontWeight="md"
                       color={useColorModeValue('gray.700', 'gray.50')}
                     >
-                      State
+                       {locales[locale].contributeForm.state}
                     </FormLabel>
                     <Select
                       placeholder="States"
@@ -279,7 +280,7 @@ export default function ContributeForm() {
                       fontWeight="md"
                       color={useColorModeValue('gray.700', 'gray.50')}
                     >
-                      City / Districts
+                       {locales[locale].contributeForm.city}
                     </FormLabel>
                     <Select
                       placeholder="Select city"
@@ -306,7 +307,7 @@ export default function ContributeForm() {
                       fontWeight="md"
                       color={useColorModeValue('gray.700', 'gray.50')}
                     >
-                      Resources
+                       {locales[locale].contributeForm.resources}
                     </FormLabel>
                     <Select
                       placeholder="Select resource"
@@ -328,7 +329,7 @@ export default function ContributeForm() {
                       fontWeight="md"
                       color={useColorModeValue('gray.700', 'gray.50')}
                     >
-                      Description
+                       {locales[locale].contributeForm.description}
                     </FormLabel>
                     <Textarea
                       type="text"
@@ -358,7 +359,7 @@ export default function ContributeForm() {
                   colorScheme="orange"
                   isLoading={isSubmitting}
                 >
-                  Submit
+                  {locales[locale].contributeForm.submit}
                 </Button>
               </Box>
             </chakra.form>

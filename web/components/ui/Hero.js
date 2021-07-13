@@ -1,7 +1,12 @@
 import SubHeading from '@/components/ui/SubHeading';
 import { Box, Heading, Text } from '@chakra-ui/react';
+import locales from '@/data/locales';
+import { useRouter } from 'next/router';
 
 export default function Hero() {
+  const router = useRouter();
+  const { locale } = router;
+
   return (
     <>
       <Box as="section">
@@ -13,14 +18,13 @@ export default function Hero() {
           textAlign="center"
         >
           <Heading size="2xl" letterSpacing="tight" color="gray.100">
-            Every single{' '}
+            {locales[locale].heroTitle1}{' '}
             <Text as="span" color="orange.500">
-              life matters
+              {locales[locale].heroTitle2}
             </Text>
           </Heading>
           <SubHeading mt="4" maxW="lg" mx="auto">
-            Find oxygen, hospital beds, blood, mask, food all in one platform.
-            We won&apos;t let anyone die of COVID.
+          {locales[locale].heroSubtitle}
           </SubHeading>
         </Box>
       </Box>

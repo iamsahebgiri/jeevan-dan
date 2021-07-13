@@ -1,14 +1,30 @@
-[
-  {
-    "name": "Resources",
-    "href": "/resources"
-  },
-  {
-    "name": "Contribute",
-    "href": "/contribute"
-  },
-  {
-    "name": "FAQs",
-    "href": "/faqs"
-  }
-]
+{
+  "en": [
+    {
+      "name": "Resources",
+      "href": "/resources"
+    },
+    {
+      "name": "Contribute",
+      "href": "/contribute"
+    },
+    {
+      "name": "FAQs",
+      "href": "/faqs"
+    }
+  ],
+  "hi": [
+    {
+      "name": "साधन",
+      "href": "/resources"
+    },
+    {
+      "name": "सहयोग",
+      "href": "/contribute"
+    },
+    {
+      "name": "प्रश्न",
+      "href": "/faqs"
+    }
+  ]
+}

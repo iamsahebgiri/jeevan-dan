@@ -13,6 +13,7 @@ import {
   Text,
   useDisclosure,
   VStack,
+  Select,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
@@ -56,12 +57,19 @@ const MobileHeaderLink = ({ name, href }) => {
 
 export default function HeaderLight() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
+  const { locale } = router;
+
+  const changeLanguage = (e) => {
+    const locale = e.target.value;
+    router.push(router.pathname, router.asPath, { locale });
+  };
 
   return (
     <Flex bgColor="white" shadow="sm" py="4">
       <Container maxW="6xl">
-        <Flex justifyContent="space-between">
-          <Flex w="full" justifyContent="space-between">
+        <Flex justifyContent="space-between" alignItems="center">
+          <Flex w="full" justifyContent="space-between" alignItems="center">
             <NextLink href="/">
               <Link _hover={{ textDecoration: 'none' }}>
                 <SiteLogo />
@@ -69,9 +77,18 @@ export default function HeaderLight() {
             </NextLink>
 
             <HStack spacing="6" display={['none', 'none', 'flex']}>
-              {navLinks.map((link) => (
+              {navLinks[locale].map((link) => (
                 <HeaderLink key={link.href} href={link.href} name={link.name} />
               ))}
+              <Select
+                variant="unstyled"
+                color="gray.500"
+                onChange={changeLanguage}
+                defaultValue={locale}
+              >
+                <option value="en">EN</option>
+                <option value="hi">HI</option>
+              </Select>
             </HStack>
           </Flex>
           <Flex alignItems="center" display={['flex', 'flex', 'none']}>
@@ -90,7 +107,7 @@ export default function HeaderLight() {
 
             <DrawerBody>
               <VStack spacing="1" alignItems="flex-start">
-                {navLinks.map((link) => (
+                {navLinks[locale].map((link) => (
                   <MobileHeaderLink
                     key={link.href}
                     href={link.href}
