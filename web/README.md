@@ -1,9 +1,9 @@
 <p align="center">
   <a href="https://jeevan-dan.vercel.app/">
-    <img alt="Project logo" height="80" src="https://raw.githubusercontent.com/iamsahebgiri/jeevan-dan/main/public/favicon/jeevan-dan.svg">
+    <img alt="Project logo" height="80" src="https://raw.githubusercontent.com/iamsahebgiri/jeevan-dan/main/web/public/favicon/jeevan-dan.svg">
   </a>
 </p>
-<h1 align="center">Jeevan Dan Frontend</h1>
+<h1 align="center">Jeevan Dan</h1>
 
 <div align="center">
 Every single life matters
@@ -28,37 +28,66 @@ Every single life matters
 
 ## ⚡️ Introduction
 
-Introduce your project, what problem you are trying to solve, what makes it unique, sell it to me. You can add screenshots/gif here.
+A platform that seamlessly connects patients and their caregivers with hospitals, blood banks, diagnostic centers, pharmacies, donors, and support groups in cases of emergencies.
+
+
+| Codebase      |    Description     |
+| :------------ | :----------------: |
+| [api](hasura) | Hasura GraphQL API |
+| [web](nextjs) |      Frontend      |
 
 ## 🎯 Features
 
 List of features
 
-- Feature one
-- Feature two
+- Connect patients with caregivers seamlessly.
+- Language is not a barrier anymore(Localization).
+- All verified resources
+- Educates on different variants of COVID-19 and its symptoms
 
 ## ⚙️ Installation
+
+For the backend you don't have to deploy locally, though you can. To play around with the graphql backend. Follow the given steps:- 
+
+- Go to [https://graphiql-online.com/](https://graphiql-online.com/) by Hasura Team.
+- Enter the hosted graphQL end point `https://jeevan-dan.hasura.app/v1/graphql`
+- And it's done. Play with it.
+
+Here is the setup instruction for installing frontend app.
 
 Download [Node.js](https://nodejs.org/en/download/).
 Run this followed commands:
 
 ```bash
-# Install dependencies (only the first time)
-npm install
+# Go to web directory
+cd web
 
-# Run the local server at localhost:8080
-npm run dev
+# Install dependencies (only the first time)
+yarn
+
+# Run the local server at localhost:3000
+yarn run dev
 
 # Build for production in the dist/ directory
-npm run build
+yarn run build
 ```
 
-## 🌱 Third Party Libraries
+## 🌱 Stacks
 
 - [Next JS](https://nextjs.org/)
 - [React JS](https://reactjs.org/)
 - [Chakra UI](https://chakra-ui.com/)
 - [React Icons](https://react-icons.github.io/react-icons/)
+- [Hasura](https://hasura.io/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Docker](https://www.docker.com/)
+
+## 📚️ Roadmaps
+
+- [ ] Like and unlike resource
+- [ ] Add hindi version for FAQs
+- [ ] Add more languages
+
 
 ## 📚️ Todo
 
@@ -67,9 +96,8 @@ npm run build
 - [x] Infinite scrolling search result
 - [x] Resources proper layout
 - [x] Contribute form
-- [ ] Localization, EN(default), OD, HI, Bengali, Telugu, Gujarati
+- [x] Localization, EN(default), HI
 - [ ] Like an unlike
-
 ## ‎‍💻 Authors
 
 - [@iamsahebgiri](https://github.com/iamsahebgiri)
