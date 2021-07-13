@@ -1,7 +1,4 @@
-import { gql } from '@apollo/client';
-
-export const GET_INITIAL_DATA = gql`
-  query GetInitialData {
+export const GET_INITIAL_DATA = `query GetInitialData {
     states {
       label: name
       value: id
